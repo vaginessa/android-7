@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Author: Nico Alt
+	See the file "LICENSE.txt" for the full license governing this code.
+-->
+<resources>
+
+    <!-- Titles -->
+    <string name="title_prefs">Settings</string>
+
+    <!-- Preferences -->
+    <string name="pref_about">About</string>
+    <string name="pref_contact">Contact</string>
+    <string name="pref_contact_website">Website</string>
+    <string name="pref_contact_tel">Telephone</string>
+    <string name="pref_contact_mail">E-Mail</string>
+    <string name="pref_contact_address">Address</string>
+    <string name="pref_contact_addcontact">Add as Contact</string>
+    <string name="pref_contact_addcontact_summary">Create an entry in your contacts</string>
+
+    <!-- Status -->
+    <string name="status_offline">You don\'t have an Internet Connection&#8230;</string>
+    <string name="load_data">Load data&#8230;</string>
+
+    <!-- Intents -->
+    <string name="intent_call">Dial</string>
+    <string name="intent_mail_tit">E-Mail</string>
+
+    <!-- AuthWebView -->
+    <string name="authentication_reset">Reset Login</string>
+    <string name="wrong">Wrong&#8230;</string>
+
+    <!-- DownloadManager -->
+    <string name="down_error">Error while downloading&#8230;</string>
+    <string name="down_paused">Download paused&#8230;</string>
+    <string name="down_pending">Download pending&#8230;</string>
+    <string name="down_running">Download running&#8230;</string>
+
+    <!-- Exceptions -->
+    <string name="except_nopdf">You need an app to view PDF files.</string>
+    <string name="except_map">You need an app to view this on a map.</string>
+    <string name="except_mail">You need an app to send mails.</string>
+    <string name="except_dial">You need an app to do calls.</string>
+    <string name="except_contacts">You need an app to manage contatcts.</string>
+
+</resources>
