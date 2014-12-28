@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Author: Nico Alt
+	See the file "LICENSE.txt" for the full license governing this code.
+-->
+<resources>
+
+    <!-- Titles -->
+    <string name="title_prefs">Einstellungen</string>
+
+    <!-- Preferences -->
+    <string name="pref_about">Über</string>
+    <string name="pref_contact">Kontakt</string>
+    <string name="pref_contact_website">Webseite</string>
+    <string name="pref_contact_tel">Telefon</string>
+    <string name="pref_contact_mail">E-Mail</string>
+    <string name="pref_contact_address">Adresse</string>
+    <string name="pref_contact_addcontact">Als Kontakt hinzufügen</string>
+    <string name="pref_contact_addcontact_summary">Daten im Adressbuch hinzufügen</string>
+
+    <!-- Status -->
+    <string name="status_offline">Du hast keine Verbindung zum Internet&#8230;</string>
+    <string name="load_data">Lade Daten&#8230;</string>
+
+    <!-- Intents -->
+    <string name="intent_call">Anrufen</string>
+    <string name="intent_mail_tit">E-Mail</string>
+
+    <!-- AuthWebView -->
+    <string name="authentication_reset">Login zurücksetzen</string>
+    <string name="wrong">Falsch&#8230;</string>
+
+    <!-- DownloadManager -->
+    <string name="down_error">Es gab einen Fehler beim Herunterladen&#8230;</string>
+    <string name="down_paused">Download pausiert&#8230;</string>
+    <string name="down_pending">Download bevorstehend&#8230;</string>
+    <string name="down_running">Download läuft&#8230;</string>
+
+    <!-- Exceptions -->
+    <string name="except_nopdf">Du brauchst eine App zum Ansehen der PDF-Dateien.</string>
+    <string name="except_map">Du brauchst eine App, die das hier auf einer Karte anzeigen kann.</string>
+    <string name="except_mail">Du brauchst eine App, die E-Mails verschicken kann.</string>
+    <string name="except_dial">Du brauchst eine App mit der du Anrufe tätigen kannst.</string>
+    <string name="except_contacts">Du brauchst eine App, die deine Kontakte verwaltet.</string>
+
+</resources>
