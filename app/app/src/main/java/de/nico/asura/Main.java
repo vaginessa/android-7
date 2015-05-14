@@ -284,7 +284,8 @@ public class Main extends Activity {
         protected void onPostExecute(JSONObject json) {
 
             // Close ProgressDialog
-            pDialog.dismiss();
+            if (pDialog != null)
+                pDialog.dismiss();
 
             try {
 
