@@ -1,5 +1,7 @@
 # Asura
 
+[![Build Status](https://travis-ci.org/asura-app/android.svg?branch=master)](https://travis-ci.org/asura-app/android)
+
 ## What is this project for?
 
 The goal of Asura is to make it easy to build an individual app which
