@@ -20,10 +20,22 @@ GitHub).
 - 4. Fill out app/app/src/main/res/values/config.xml .
 - 5. Build the app with Android Studio or "gradle build".
 
+## Repositories
+
+Official repository:
+
+[GitLab](https://gitlab.com/asura/android)
+
+Official mirror (Pull Request are welcome):
+
+[GitHub](https://github.com/asura-app/android)
 ## TODO
 
 Take a look at
-[GitHub Issues](https://github.com/asura-app/android/issues).
+[GitLab Issues](https://gitlab.com/asura/android/issues).
+
+If you want to report an issue but not to sign up on GitLab, you can
+also send it to me by [mail](mailto:nicoalt@posteo.org).
 
 ## LICENSE
 
