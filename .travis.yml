@@ -8,8 +8,5 @@ android:
   licenses:
     - 'android-sdk-license-.+'
     - '.*intel.+'
-before_install:
-  - cd app/
 install:
   - gradle build connectedCheck
-script:

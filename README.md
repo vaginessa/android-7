@@ -10,15 +10,16 @@ configuring a single file.
 
 ## How do I get set up?
 
-- 0. Import the project in Android Studio or use a editor.
-- 1. Edit app/app/build.gradle
+- 0.1 Fork the repositories
+"[android](https://gitlab.com/asura/android)" and
+"[data](https://gitlab.com/asura/data)" or its mirrors.
+- 0.2 Import the project in Android Studio or use an editor.
+- 1. Edit app/build.gradle
 (applicationId, versionCode, versionName).
-- 2. Change the application icon in app/app/src/main/res/drawable
+- 2. Change the application icon in app/src/main/res/drawable
 (hdpi, mdpi, xhdpi).
-- 3. Fill out online/plans.json and upload it somewhere (or push it to
-GitHub).
-- 4. Fill out app/app/src/main/res/values/config.xml .
-- 5. Build the app with Android Studio or "gradle build".
+- 3. Fill out app/src/main/res/values/config.xml .
+- 4. Build the app with Android Studio or "gradle build".
 
 ## Repositories
 
@@ -29,6 +30,7 @@ Official repository:
 Official mirror (Pull Request are welcome):
 
 [GitHub](https://github.com/asura-app/android)
+
 ## TODO
 
 Take a look at
