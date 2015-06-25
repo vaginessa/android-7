@@ -29,7 +29,7 @@
     <string name="gen_loc">Asura</string>
 
     <!-- 1.3 URL, where the JSON file for the list with the PDFs is stored -->
-    <string name="gen_json">https://gitlab.com/asura/data/raw/master/plans.json</string>
+    <string name="gen_json">https://raw.githubusercontent.com/asura-app/data/master/plans.json</string>
 
     <!-- 1.4 Name of the Widget -->
     <string name="gen_widget_name">Asura</string>
