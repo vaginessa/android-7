@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Author: Nico Alt
+	See the file "LICENSE" for the full license governing this code.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/widget"
+    android:minHeight="8dp"
+    android:minWidth="8dp"
+    android:updatePeriodMillis="259200000" />

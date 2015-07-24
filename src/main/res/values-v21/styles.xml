@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Author: Nico Alt
+	See the file "LICENSE" for the full license governing this code.
+-->
+<resources>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:colorPrimary">@color/gen_color_primary</item>
+        <item name="android:colorPrimaryDark">@color/gen_color_primary_dark</item>
+        <item name="android:colorAccent">@color/gen_color_accent</item>
+    </style>
+
+</resources>

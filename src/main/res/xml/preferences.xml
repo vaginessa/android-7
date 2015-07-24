@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Author: Nico Alt
+	See the file "LICENSE" for the full license governing this code.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="pref_contact"
+        android:title="@string/pref_contact">
+
+        <PreferenceScreen
+            android:key="pref_contact_tel"
+            android:summary="@string/pref_contact_tel_sub"
+            android:title="@string/pref_contact_tel" />
+
+        <PreferenceScreen
+            android:key="pref_contact_mail"
+            android:summary="@string/pref_contact_mail_sub"
+            android:title="@string/pref_contact_mail" />
+
+        <PreferenceScreen
+            android:key="pref_contact_address"
+            android:summary="@string/pref_contact_address_sub"
+            android:title="@string/pref_contact_address" />
+
+        <PreferenceScreen
+            android:summary="@string/pref_contact_website_sub"
+            android:title="@string/pref_contact_website">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/intent_web" />
+
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:key="pref_contact_addcontact"
+            android:summary="@string/pref_contact_addcontact_summary"
+            android:title="@string/pref_contact_addcontact" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_about"
+        android:title="@string/pref_about">
+
+        <Preference
+            android:summary="@string/pref_about_first_sub"
+            android:title="@string/pref_about_first_tit" />
+
+        <Preference
+            android:summary="@string/pref_about_second_sub"
+            android:title="@string/pref_about_second_tit" />
+
+        <Preference
+            android:summary="@string/pref_about_third_sub"
+            android:title="@string/pref_about_third_tit" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

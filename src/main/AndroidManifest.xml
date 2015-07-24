@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Author: Nico Alt
+	See the file "LICENSE" for the full license governing this code.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.nico.asura">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/gen_name"
+        android:theme="@style/AppTheme">
+
+        <!-- Main Application Activity -->
+        <activity
+            android:name="de.nico.asura.Main"
+            android:label="@string/gen_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- WebViewFirst Activity -->
+        <activity
+            android:name="de.nico.asura.activities.WebView1"
+            android:label="@string/menu_Web_1_name">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.nico.asura.Main" />
+        </activity>
+
+        <!-- PassWebViewFirst Activity -->
+        <activity
+            android:name="de.nico.asura.activities.AuthWebView1"
+            android:label="@string/menu_AuthWeb_1_name">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.nico.asura.Main" />
+        </activity>
+
+        <!-- Preferences Activity -->
+        <activity
+            android:name="de.nico.asura.activities.Preferences"
+            android:label="@string/title_prefs">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.nico.asura.Main" />
+        </activity>
+
+        <!-- Widget -->
+        <receiver
+            android:name="de.nico.asura.tools.Widget"
+            android:label="@string/gen_widget_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+
+    </application>
+
+</manifest>

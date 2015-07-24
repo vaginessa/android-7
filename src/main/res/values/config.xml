@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Author: Nico Alt
+	See the file "LICENSE" for the full license governing this code.
+	
+	This is the config file of Asura, where you can set everything what's normally needed.
+	To change the launcher icon, change the file "ic_launcher.png" in the drawable folders.
+	Do not forget to change the application id in 'app/build.gradle'!
+	
+	Checklist:
+	- 1. Change application id
+	- 2. Change application icon
+	- 3. Fill out this file (config.xml)
+	
+	Index:
+	- 1. General (Name, JSON URL, ...)
+	- 2. Preferences (About, Contact)
+	- 3. Menu Items
+	- 4. Data
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- 1. General (Name, JSON URL, ...) -->
+
+        <!-- 1.1 Name of the app, i.e. in Home Launcher -->
+        <string name="gen_name">Asura</string>
+
+        <!-- 1.2 Directory, where all downloaded files are stored -->
+        <string name="gen_loc">Asura</string>
+
+        <!-- 1.3 URL, where the JSON file for the list with the PDFs is stored -->
+        <string name="gen_json">http://gitlab.com/asura/data/raw/master/plans.json</string>
+
+        <!-- 1.4 Name of the Widget -->
+        <string name="gen_widget_name">Asura</string>
+
+        <!-- 1.5 Colors (API 21+ only) -->
+
+            <!-- 1.5.1 Primary -->
+            <color name="gen_color_primary">#94BD31</color>
+
+            <!-- 1.5.2 Primary Dark -->
+            <color name="gen_color_primary_dark">#688522</color>
+
+            <!-- 1.5.2 Accent -->
+            <color name="gen_color_accent">#94BD31</color>
+
+    <!-- 2. Preferences (About, Contact) -->
+
+        <!-- 2.1 About -->
+
+            <!-- 2.1.1 Title of first item -->
+            <string name="pref_about_first_tit">School Administration</string>
+
+                <!-- 2.1.1.1 Subtitle of first item -->
+                <string name="pref_about_first_sub">Max Mustermann</string>
+
+            <!-- 2.1.2 Title of second item -->
+            <string name="pref_about_second_tit">Webmaster</string>
+
+                <!-- 2.1.2.1 Subtitle of second item -->
+                <string name="pref_about_second_sub">John Doe</string>
+
+            <!-- 2.1.3 Title of third item -->
+            <string name="pref_about_third_tit">App Developer</string>
+
+                <!-- 2.1.3.1 Subtitle of third item -->
+                <string name="pref_about_third_sub">Nico Alt</string>
+
+        <!-- 2.2 Contact -->
+
+            <!-- 2.2.1 Address of website (without http...) -->
+            <string name="pref_contact_website_sub">altnico.github.io</string>
+
+            <!-- 2.2.2 Nicely formatted telephone number (without +...) -->
+            <string name="pref_contact_tel_sub">0123456789</string>
+
+            <!-- 2.2.3 E-Mail address -->
+            <string name="pref_contact_mail_sub">nicoalt@posteo.org</string>
+
+            <!-- 2.2.4 Address (two lines) -->
+            <string name="pref_contact_address_sub">Pariser Platz\n10117 Berlin</string>
+
+
+    <!-- 3. Menu Items -->
+
+        <!-- 3.1 WebView -->
+
+            <!-- 3.1.1 First -->
+
+            <!-- 3.1.1.1 Visible -->
+            <bool name="menu_Web_1_vis">true</bool>
+
+            <!-- 3.1.1.2 Name -->
+            <string name="menu_Web_1_name">WebView</string>
+
+            <!-- 3.1.1.3 Order in Category -->
+            <integer name="menu_Web_1_order">70</integer>
+
+            <!-- 3.1.1.4 URL -->
+            <string name="menu_Web_1_url">https://altnico.github.io/</string>
+
+            <!-- 3.1.1.5 JavaScript (Disable if not needed) -->
+            <bool name="menu_Web_1_js">true</bool>
+
+
+        <!-- 3.2 WebView with authentication -->
+
+            <!-- 3.2.1 First -->
+
+                <!-- 3.2.1.1 Visible -->
+                <bool name="menu_AuthWeb_1_vis">false</bool>
+
+                <!-- 3.2.1.2 Name -->
+                <string name="menu_AuthWeb_1_name">AuthWebView</string>
+
+                <!-- 3.2.1.3 Order in Category -->
+                <integer name="menu_AuthWeb_1_order">80</integer>
+
+                <!-- 3.2.1.4 URL -->
+                <string name="menu_AuthWeb_1_url">URL</string>
+
+                <!-- 3.2.1.5 JavaScript (Disable if not needed) -->
+                <bool name="menu_AuthWeb_1_js">true</bool>
+
+                <!-- 3.2.1.6 Authentication -->
+
+                    <!-- 3.2.1.6.1 First field -->
+                    <string name="menu_AuthWeb_1_fiFi">Name</string>
+
+                    <!-- 3.2.1.6.2 Second field -->
+                    <string name="menu_AuthWeb_1_seFi">Passwort</string>
+
+
+        <!-- 3.3 Link -->
+
+            <!-- 3.3.1 First -->
+
+                <!-- 3.3.1.1 Visible -->
+                <bool name="menu_Link_1_vis">true</bool>
+
+                <!-- 3.3.1.2 Name -->
+                <string name="menu_Link_1_name">Link</string>
+
+                <!-- 3.3.1.3 Order in Category -->
+                <integer name="menu_Link_1_order">90</integer>
+
+                <!-- 3.3.1.4 URL -->
+                <string name="menu_Link_1_url">https://gitlab.com/NicoAlt/</string>
+
+
+    <!-- 4. Data -->
+
+        <!-- 4.1 Contacts -->
+
+            <!-- 4.1.1 Name of contact -->
+            <string name="contacts_name">Asura</string>
+
+            <!-- 4.1.2 First number (Work) -->
+            <string name="contacts_number_1">+1 123456789</string>
+
+            <!-- 4.1.3 Second number (Fax) -->
+            <string name="contacts_number_2">+1 98754321</string>
+
+            <!-- 4.1.4 Address -->
+            <string name="contacts_address">Pariser Platz\n10117 Berlin</string>
+
+            <!-- 4.1.5 E-Mail address -->
+            <string name="contacts_mail">nicoalt@posteo.org</string>
+
+
+        <!-- 4.2 Intens -->
+
+            <!-- 4.2.1 Correctly formatted address for browser (with http...) -->
+            <string name="intent_web">https://altnico.github.io/</string>
+
+            <!-- 4.2.2 E-Mail address -->
+            <string name="intent_mail">nicoalt@posteo.org</string>
+
+            <!-- 4.2.3 Number to Dial -->
+            <string name="intent_number">+1 123456789</string>
+
+            <!-- 4.2.4 geo:[Latitude decimal degrees],[Longitude decimal degrees]?q=[Address] -->
+            <string name="intent_address">geo:52.516386,13.378836?q=Pariser Platz, 10117 Berlin</string>
+
+</resources>
