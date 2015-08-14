@@ -42,4 +42,4 @@ also send it to me by [mail](mailto:nicoalt@posteo.org).
 ## LICENSE
 
 See
-[LICENSE](https://gitlab.com/asura/android/blob/master/LICENSE).
+[LICENSE](./LICENSE).
