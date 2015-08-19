@@ -14,12 +14,13 @@ configuring a single file.
 "[android](https://gitlab.com/asura/android)" and
 "[data](https://gitlab.com/asura/data)" or its mirrors.
 - 0.2 Import the project in Android Studio or use an editor.
-- 1. Edit app/build.gradle
+- 1. Edit [build.gradle](build.gradle)
 (applicationId, versionCode, versionName).
 - 2. Change the application icon in app/src/main/res/drawable
 (hdpi, mdpi, xhdpi).
-- 3. Fill out app/src/main/res/values/config.xml .
-- 4. Build the app with Android Studio or "gradle build".
+- 3. Fill out
+[src/main/res/values/config.xml](src/main/res/values/config.xml).
+- 4. Build the app with Android Studio or `gradle build`.
 
 ## Repositories
 
