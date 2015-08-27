@@ -1,6 +1,6 @@
 # Asura
 
-[![Build Status](https://travis-ci.org/asura-app/android.svg?branch=master)](https://travis-ci.org/asura-app/android)
+[![Build Status](https://ci.gitlab.com/projects/3552/status.png?ref=master)](https://ci.gitlab.com/projects/3552?ref=master)
 
 ## What is this project for?
 
