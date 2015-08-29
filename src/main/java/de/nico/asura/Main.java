@@ -49,6 +49,7 @@ public final class Main extends Activity {
     private static final String TAG_NAME = "name";
     private static final String TAG_FILENAME = "filename";
     private static final String TAG_URL = "url";
+    private static final String TAG_SHOULD_NOT_CACHE = "shouldNotCache";
     private static String offline;
     private static String noPDF;
     private static String localLoc;
@@ -61,6 +62,9 @@ public final class Main extends Activity {
 
     // Data from JSON file
     private final ArrayList<HashMap<String, String>> downloadList = new ArrayList<>();
+
+    // Files to delete
+    private static final ArrayList<String> filesToGetDeleted = new ArrayList<>();
 
     private static SwipeRefreshLayout swipeRefreshLayout;
 
@@ -184,6 +188,19 @@ public final class Main extends Activity {
         unregisterReceiver(downloadReceiver);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Delete files which should not get cached.
+        for(String file : filesToGetDeleted) {
+            final File f = new File(file);
+            if (f.exists()) {
+                f.delete();
+            }
+        }
+    }
+
     private void update(boolean force) {
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout_main);
@@ -218,6 +235,7 @@ public final class Main extends Activity {
                                         long id) {
                     final Uri downloadUri = Uri.parse(downloadList.get(pos).get(TAG_URL));
                     final String title = downloadList.get(pos).get(TAG_NAME);
+                    final String shouldNotCache = downloadList.get(pos).get(TAG_SHOULD_NOT_CACHE);
                     file = new File(Environment.getExternalStorageDirectory() + "/"
                             + localLoc + "/"
                             + downloadList.get(pos).get(TAG_FILENAME) + ".pdf");
@@ -241,6 +259,9 @@ public final class Main extends Activity {
                         final Request request = new Request(downloadUri);
                         request.setTitle(title).setDestinationUri(dst);
                         downloadID = downloadManager.enqueue(request);
+                        if (shouldNotCache.equals("true")) {
+                            filesToGetDeleted.add(file.toString());
+                        }
                     }
                     else {
                         Utils.makeLongToast(Main.this, offline);
@@ -315,12 +336,17 @@ public final class Main extends Activity {
                     final String ver = c.getString(TAG_FILENAME);
                     final String name = c.getString(TAG_NAME);
                     final String api = c.getString(TAG_URL);
+                    String shouldNotCache = "";
+                    if (c.has(TAG_SHOULD_NOT_CACHE)) {
+                        shouldNotCache = c.getString(TAG_SHOULD_NOT_CACHE);
+                    }
 
                     // Adding value HashMap key => value
                     final HashMap<String, String> map = new HashMap<>();
                     map.put(TAG_FILENAME, ver);
                     map.put(TAG_NAME, name);
                     map.put(TAG_URL, api);
+                    map.put(TAG_SHOULD_NOT_CACHE, shouldNotCache);
                     downloadList.add(map);
 
                     setList(online, true);
