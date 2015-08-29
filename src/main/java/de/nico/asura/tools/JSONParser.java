@@ -118,12 +118,6 @@ public final class JSONParser {
         } catch (ClassCastException e) {
             Log.e("ClassCastException", e.toString());
             return null;
-        } finally {
-            try {
-                urlConnection.disconnect();
-            } catch (NullPointerException e) {
-                Log.e("NullPointerException", e.toString());
-            }
         }
     }
 
