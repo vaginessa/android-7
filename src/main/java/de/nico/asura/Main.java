@@ -124,7 +124,7 @@ public final class Main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        update();
+        update(false);
     }
 
     @Override
@@ -184,7 +184,7 @@ public final class Main extends Activity {
         unregisterReceiver(downloadReceiver);
     }
 
-    private void update() {
+    private void update(boolean force) {
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout_main);
 
@@ -196,71 +196,71 @@ public final class Main extends Activity {
         checkDir();
 
         // Parse the JSON file of the plans from the URL
-        if (Utils.isNoNetworkAvailable(this)) {
-            final HashMap<String, String> map = new HashMap<>();
-            map.put(TAG_NAME, offline);
-            downloadList.add(map);
-
-            setList(false);
-        } else {
-            new JSONParse().execute();
-        }
+        JSONParse j = new JSONParse();
+        j.force = force;
+        j.online = !Utils.isNoNetworkAvailable(this);
+        j.execute();
     }
 
-    private void setList(boolean downloadable) {
+    private void setList(final boolean downloadable, final boolean itemsAvailable) {
         final ListView list = (ListView) findViewById(R.id.listView_main);
         final ListAdapter adapter = new SimpleAdapter(this, downloadList,
                 android.R.layout.simple_list_item_1, new String[]{TAG_NAME},
                 new int[]{android.R.id.text1});
         list.setAdapter(adapter);
 
-        // Do nothing when there is no Internet
-        if (!downloadable) {
-            return;
-        }
         // React when user click on item in the list
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        if (itemsAvailable) {
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int pos,
-                                    long id) {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View v, int pos,
+                                        long id) {
+                    final Uri downloadUri = Uri.parse(downloadList.get(pos).get(TAG_URL));
+                    final String title = downloadList.get(pos).get(TAG_NAME);
+                    file = new File(Environment.getExternalStorageDirectory() + "/"
+                            + localLoc + "/"
+                            + downloadList.get(pos).get(TAG_FILENAME) + ".pdf");
+                    final Uri dst = Uri.fromFile(file);
 
-                final Uri downloadUri = Uri.parse(downloadList.get(pos).get(TAG_URL));
-                final String title = downloadList.get(pos).get(TAG_NAME);
-                file = new File(Environment.getExternalStorageDirectory() + "/"
-                        + localLoc + "/"
-                        + downloadList.get(pos).get(TAG_FILENAME) + ".pdf");
-                final Uri dst = Uri.fromFile(file);
+                    if (file.exists()) {
+                        final Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
+                        pdfIntent.setDataAndType(dst, "application/pdf");
+                        pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                if (file.exists()) {
-                    final Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-                    pdfIntent.setDataAndType(dst, "application/pdf");
-                    pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    try {
-                        startActivity(pdfIntent);
-                    } catch (ActivityNotFoundException e) {
-                        Utils.makeLongToast(Main.this, noPDF);
-                        Log.e("ActivityNotFoundExcept", e.toString());
+                        try {
+                            startActivity(pdfIntent);
+                        } catch (ActivityNotFoundException e) {
+                            Utils.makeLongToast(Main.this, noPDF);
+                            Log.e("ActivityNotFoundExcept", e.toString());
+                        }
+                        return;
                     }
-                    return;
+                    if (downloadable && !Utils.isNoNetworkAvailable(Main.this)) {
+                        // Download PDF
+                        final Request request = new Request(downloadUri);
+                        request.setTitle(title).setDestinationUri(dst);
+                        downloadID = downloadManager.enqueue(request);
+                    }
+                    else {
+                        Utils.makeLongToast(Main.this, offline);
+                    }
                 }
-                // Download PDF
-                final Request request = new Request(downloadUri);
-                request.setTitle(title).setDestinationUri(dst);
-                downloadID = downloadManager.enqueue(request);
-            }
-        });
+            });
+        }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                update();
+                update(true);
             }
         });
     }
 
     private class JSONParse extends AsyncTask<String, String, JSONObject> {
+
+        public boolean force = false;
+        public boolean online = false;
 
         @Override
         protected void onPreExecute() {
@@ -276,20 +276,30 @@ public final class Main extends Activity {
 
         @Override
         protected JSONObject doInBackground(String... args) {
-            return JSONParser.getJSONFromUrl(jsonURL);
+            return JSONParser.getJSONFromUrl(Main.this, jsonURL, force, online);
         }
 
         @Override
         protected void onPostExecute(JSONObject json) {
-            swipeRefreshLayout.setRefreshing(false);
 
+            swipeRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            });
+
+            downloadList.clear();
             if (json == null) {
+                String error = getString(R.string.except_json);
+                if (!online) {
+                    error = offline;
+                }
                 final HashMap<String, String> map = new HashMap<>();
-                final String error = getString(R.string.except_json);
                 map.put(TAG_NAME, error);
                 downloadList.add(map);
 
-                setList(false);
+                setList(false, false);
                 return;
             }
 
@@ -298,7 +308,6 @@ public final class Main extends Activity {
                 // Get JSON Array from URL
                 final JSONArray j_plans = json.getJSONArray(TAG_TYPE);
 
-                downloadList.clear();
                 for (int i = 0; i < j_plans.length(); i++) {
                     final JSONObject c = j_plans.getJSONObject(i);
 
@@ -314,7 +323,7 @@ public final class Main extends Activity {
                     map.put(TAG_URL, api);
                     downloadList.add(map);
 
-                    setList(true);
+                    setList(online, true);
                 }
             } catch (JSONException e) {
                 Log.e("JSONException", e.toString());

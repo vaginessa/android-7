@@ -5,6 +5,9 @@ package de.nico.asura.tools;
  * See the file "LICENSE" for the full license governing this code.
  */
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -22,6 +25,18 @@ import javax.net.ssl.HttpsURLConnection;
 
 public final class JSONParser {
 
+    // Default SharedPreferences
+    private static SharedPreferences cache;
+
+    // String where index is cached
+    private static final String TAG_JSON = "json";
+
+    // Shows time when index was synced the last time
+    private static final String TAG_TIME = "lastTimeSynced";
+
+    // How long the index should be cached in milliseconds
+    private static final long CACHE_TIME = 600000;
+
     /**
      * Parses a {@link org.json.JSONObject} from an {@link java.net.URL}.
      *
@@ -29,37 +44,39 @@ public final class JSONParser {
      * @return {@link org.json.JSONObject} from urlString, null if urlString does not contain a {@link org.json.JSONObject}.
      */
     @Nullable
-    public static JSONObject getJSONFromUrl(String urlString) {
-        // Parse String to URL
-        URL url = null;
-        try {
-            url = new URL(urlString);
-        } catch (MalformedURLException e) {
-            Log.e("MalformedURLException", e.toString());
-        }
-
-        // Open URL
-        HttpsURLConnection urlConnection = null;
-        InputStream is;
-        try {
-            urlConnection = (HttpsURLConnection) url.openConnection();
-            is = urlConnection.getInputStream();
-        } catch (IOException e) {
-            Log.e("IOException", e.toString());
-            return null;
-        } catch (NullPointerException e) {
-            Log.e("NullPointerException", e.toString());
-            return null;
-        } finally {
-            try {
-                urlConnection.disconnect();
-            } catch (NullPointerException e) {
-                Log.e("NullPointerException", e.toString());
+    public static JSONObject getJSONFromUrl(Context c, String urlString, boolean force, boolean online) {
+        cache = PreferenceManager.getDefaultSharedPreferences(c);
+        final String JSON = readStringFromCache(TAG_JSON);
+        if (JSON == null || !shouldCache(cache) || force) {
+            if (online) {
+                final InputStream inputStream = getInputStreamFromURL(urlString);
+                if (inputStream != null) {
+                    final String newJSON = readStringFromInputStream(inputStream);
+                    final JSONObject jsonObject = getJSONObjectFromString(newJSON);
+                    if (jsonObject != null) {
+                        writeToCache(newJSON, TAG_JSON);
+                        writeToCache(System.currentTimeMillis(), TAG_TIME);
+                        return jsonObject;
+                    }
+                    else if (JSON != null) {
+                        return getJSONObjectFromString(JSON);
+                    }
+                }
+                else if (JSON != null) {
+                    return getJSONObjectFromString(JSON);
+                }
+            }
+            else {
+                return null;
             }
         }
+        return getJSONObjectFromString(JSON);
+    }
 
-        // Read URL
-        String json;
+    /**
+     * Reads String from InputStream
+     */
+    private static String readStringFromInputStream(InputStream is) {
         try {
             final InputStreamReader isr = new InputStreamReader(is, "UTF-8");
             final BufferedReader reader = new BufferedReader(isr, 8);
@@ -70,18 +87,92 @@ public final class JSONParser {
                 sb.append(line).append("\n");
             }
             is.close();
-            json = sb.toString();
+            return sb.toString();
         } catch (IOException e) {
             Log.e("IOException", e.toString());
             return null;
         }
+    }
 
-        // Return JSONObject if it's one, otherwise null
+    private static InputStream getInputStreamFromURL(String urlString) {
+        // Parse String to URL
+        URL url;
         try {
-            return new JSONObject(json);
-        } catch (JSONException e) {
-            Log.e("JSONException", e.toString());
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            Log.e("MalformedURLException", e.toString());
             return null;
         }
+
+        // Open URL
+        HttpsURLConnection urlConnection = null;
+        try {
+            urlConnection = (HttpsURLConnection) url.openConnection();
+            return urlConnection.getInputStream();
+        } catch (IOException e) {
+            Log.e("IOException", e.toString());
+            return null;
+        } catch (NullPointerException e) {
+            Log.e("NullPointerException", e.toString());
+            return null;
+        } catch (ClassCastException e) {
+            Log.e("ClassCastException", e.toString());
+            return null;
+        } finally {
+            try {
+                urlConnection.disconnect();
+            } catch (NullPointerException e) {
+                Log.e("NullPointerException", e.toString());
+            }
+        }
+    }
+
+    /**
+     * Tries to do a new {@link org.json.JSONObject} from a String.
+     */
+    private static JSONObject getJSONObjectFromString(String s) {
+        if (s != null) {
+            try {
+                return new JSONObject(s);
+            } catch (JSONException e) {
+                Log.e("JSONException", e.toString());
+                return null;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Writes a long to the cache.
+     */
+    private static void writeToCache(long s, String tag) {
+        final SharedPreferences.Editor editor = cache.edit();
+        editor.putLong(tag, s);
+        editor.commit();
+    }
+
+    /**
+     * Writes a string to the cache.
+     */
+    private static void writeToCache(String s, String tag) {
+        final SharedPreferences.Editor editor = cache.edit();
+        editor.putString(tag, s);
+        editor.commit();
+    }
+
+    /**
+     * Reads a string from the cache.
+     */
+    private static String readStringFromCache(String tag) {
+        return cache.getString(tag, null);
+    }
+
+    /**
+     * Indicates if the index should be cached, based on the last time downloaded.
+     */
+    private static boolean shouldCache(SharedPreferences cache) {
+        final long lastTimeSynced = cache.getLong(TAG_TIME, 0);
+        final long currentTime = System.currentTimeMillis();
+        return (currentTime - lastTimeSynced) < CACHE_TIME;
     }
 }
