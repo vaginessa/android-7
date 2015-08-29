@@ -3,6 +3,10 @@
 Some changes may have the headline *Developer* which means that it does not
 affect the user.
 
+### 0.51 (29.08.2015)
+
+- Fix bug with closed connection
+
 ### 0.50 (29.08.2015)
 
 - Cache JSON index
