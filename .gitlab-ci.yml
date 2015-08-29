@@ -13,7 +13,7 @@ before_script:
   - echo y | android -s update sdk --no-ui -a -t platform-tools
   - echo y | android -s update sdk --no-ui -a -t tools
   - echo y | android -s update sdk --no-ui -a -t build-tools-23.0.0
-  - echo y | android -s update sdk --no-ui -a -t android-22
+  - echo y | android -s update sdk --no-ui -a -t android-23
   - echo y | android -s update sdk --no-ui -a -t extra-android-m2repository
   - echo " == Installing Gradle"
   - wget -q -O gradle.zip https://services.gradle.org/distributions/gradle-2.4-bin.zip
