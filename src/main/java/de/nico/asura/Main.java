@@ -184,13 +184,13 @@ public final class Main extends Activity {
             map.put(TAG_NAME, offline);
             downloadList.add(map);
 
-            setList();
+            setList(false);
         } else {
             new JSONParse().execute();
         }
     }
 
-    private void setList() {
+    private void setList(boolean downloadable) {
         final ListView list = (ListView) findViewById(R.id.listView_main);
         final ListAdapter adapter = new SimpleAdapter(this, downloadList,
                 android.R.layout.simple_list_item_1, new String[]{TAG_NAME},
@@ -198,7 +198,7 @@ public final class Main extends Activity {
         list.setAdapter(adapter);
 
         // Do nothing when there is no Internet
-        if (Utils.isNoNetworkAvailable(this)) {
+        if (!downloadable) {
             return;
         }
         // React when user click on item in the list
@@ -276,6 +276,16 @@ public final class Main extends Activity {
             // Close ProgressDialog
             if (pDialog != null)
                 pDialog.dismiss();
+            
+            if (json == null) {
+                final HashMap<String, String> map = new HashMap<>();
+                final String error = getString(R.string.except_json);
+                map.put(TAG_NAME, error);
+                downloadList.add(map);
+
+                setList(false);
+                return;
+            }
 
             try {
 
@@ -297,7 +307,7 @@ public final class Main extends Activity {
                     map.put(TAG_URL, api);
                     downloadList.add(map);
 
-                    setList();
+                    setList(true);
                 }
             } catch (JSONException e) {
                 Log.e("JSONException", e.toString());

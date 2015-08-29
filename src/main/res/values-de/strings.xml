@@ -42,6 +42,7 @@
     <string name="except_mail">Du brauchst eine App, die E-Mails verschicken kann.</string>
     <string name="except_dial">Du brauchst eine App mit der du Anrufe tätigen kannst.</string>
     <string name="except_contacts">Du brauchst eine App, die deine Kontakte verwaltet.</string>
+    <string name="except_json">Es gab einen Fehler beim Herunterladen. Bitte versuche es später erneut.</string>
 
     <!-- Widget -->
     <string name="widget_description">App Icon</string>
