@@ -20,9 +20,7 @@ public final class Widget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
-        for (int i = 0; i < appWidgetIds.length; i++) {
-            final int appWidgetId = appWidgetIds[i];
-
+        for (final int appWidgetId : appWidgetIds) {
             final Intent intent = new Intent(context, Main.class);
             final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
