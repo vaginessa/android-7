@@ -83,7 +83,7 @@ public final class Main extends Activity {
                             startActivity(pdfIntent);
                         } catch (ActivityNotFoundException e) {
                             Utils.makeLongToast(Main.this, noPDF);
-                            Log.e("ActivityNotFoundException", e.toString());
+                            Log.e("ActivityNotFoundExcept", e.toString());
                         }
                         break;
                     case DownloadManager.STATUS_FAILED:
@@ -224,7 +224,7 @@ public final class Main extends Activity {
                         startActivity(pdfIntent);
                     } catch (ActivityNotFoundException e) {
                         Utils.makeLongToast(Main.this, noPDF);
-                        Log.e("ActivityNotFoundException", e.toString());
+                        Log.e("ActivityNotFoundExcept", e.toString());
                     }
                     return;
                 }

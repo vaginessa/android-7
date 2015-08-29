@@ -60,7 +60,7 @@ public final class Utils {
             return true;
         } catch (ActivityNotFoundException e) {
             Utils.makeLongToast(c, c.getString(R.string.except_contacts));
-            Log.e("ActivityNotFoundException", e.toString());
+            Log.e("ActivityNotFoundExcept", e.toString());
             return false;
         }
     }
@@ -80,7 +80,7 @@ public final class Utils {
             return true;
         } catch (ActivityNotFoundException e) {
             Utils.makeLongToast(c, c.getString(R.string.except_dial));
-            Log.e("ActivityNotFoundException", e.toString());
+            Log.e("ActivityNotFoundExcept", e.toString());
             return false;
         }
     }
@@ -104,7 +104,7 @@ public final class Utils {
             return true;
         } catch (ActivityNotFoundException e) {
             Utils.makeLongToast(c, c.getString(R.string.except_mail));
-            Log.e("ActivityNotFoundException", e.toString());
+            Log.e("ActivityNotFoundExcept", e.toString());
             return false;
         }
     }
@@ -121,7 +121,7 @@ public final class Utils {
             return true;
         } catch (ActivityNotFoundException e) {
             Utils.makeLongToast(c, c.getString(R.string.except_map));
-            Log.e("ActivityNotFoundException", e.toString());
+            Log.e("ActivityNotFoundExcept", e.toString());
             return false;
         }
     }
