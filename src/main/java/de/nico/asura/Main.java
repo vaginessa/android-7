@@ -59,6 +59,9 @@ public final class Main extends Activity {
     private static long downloadID;
     private static File file;
 
+    // Data from JSON file
+    private final ArrayList<HashMap<String, String>> downloadList = new ArrayList<>();
+
     private final BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
 
         @Override
@@ -106,9 +109,6 @@ public final class Main extends Activity {
             }
         }
     };
-
-    // Data from JSON file
-    private final ArrayList<HashMap<String, String>> downloadList = new ArrayList<>();
 
     private static void checkDir() {
         final File dir = new File(Environment.getExternalStorageDirectory() + "/"
@@ -166,6 +166,20 @@ public final class Main extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final IntentFilter intentFilter = new IntentFilter(
+                DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        registerReceiver(downloadReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(downloadReceiver);
     }
 
     private void update() {
@@ -236,20 +250,6 @@ public final class Main extends Activity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        final IntentFilter intentFilter = new IntentFilter(
-                DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        registerReceiver(downloadReceiver, intentFilter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(downloadReceiver);
-    }
-
     private class JSONParse extends AsyncTask<String, String, JSONObject> {
 
         private ProgressDialog pDialog;
@@ -276,7 +276,7 @@ public final class Main extends Activity {
             // Close ProgressDialog
             if (pDialog != null)
                 pDialog.dismiss();
-            
+
             if (json == null) {
                 final HashMap<String, String> map = new HashMap<>();
                 final String error = getString(R.string.except_json);
