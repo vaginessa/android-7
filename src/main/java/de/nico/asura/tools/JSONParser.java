@@ -5,13 +5,9 @@ package de.nico.asura.tools;
  * See the file "LICENSE" for the full license governing this code.
  */
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,55 +15,73 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public final class JSONParser {
 
-    private static InputStream is;
-    private static JSONObject jObj;
-    private static String json;
-
-    public static JSONObject getJSONFromUrl(String url) {
-
-        // Make HTTP request
+    /**
+     * Parses a {@link org.json.JSONObject} from an {@link java.net.URL}.
+     *
+     * @param urlString A http://... address
+     * @return {@link org.json.JSONObject} from urlString, null if urlString does not contain a {@link org.json.JSONObject}.
+     */
+    @Nullable
+    public static JSONObject getJSONFromUrl(String urlString) {
+        // Parse String to URL
+        URL url = null;
         try {
-            final DefaultHttpClient httpClient = new DefaultHttpClient();
-            final HttpPost httpPost = new HttpPost(url);
-            final HttpResponse httpResponse = httpClient.execute(httpPost);
-            final HttpEntity httpEntity = httpResponse.getEntity();
-            is = httpEntity.getContent();
-        } catch (UnsupportedEncodingException e) {
-            Log.e("UnsupportedEncodingException", e.toString());
-        } catch (ClientProtocolException e) {
-            Log.e("ClientProtocolException", e.toString());
-        } catch (IOException e) {
-            Log.e("IOException", e.toString());
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            Log.e("MalformedURLException", e.toString());
         }
 
+        // Open URL
+        HttpsURLConnection urlConnection = null;
+        InputStream is;
+        try {
+            urlConnection = (HttpsURLConnection) url.openConnection();
+            is = urlConnection.getInputStream();
+        } catch (IOException e) {
+            Log.e("IOException", e.toString());
+            return null;
+        } catch (NullPointerException e) {
+            Log.e("NullPointerException", e.toString());
+            return null;
+        } finally {
+            try {
+                urlConnection.disconnect();
+            } catch (NullPointerException e) {
+                Log.e("NullPointerException", e.toString());
+            }
+        }
+
+        // Read URL
+        String json;
         try {
             final InputStreamReader isr = new InputStreamReader(is, "UTF-8");
             final BufferedReader reader = new BufferedReader(isr, 8);
             final StringBuilder sb = new StringBuilder();
-            String line;
 
+            String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append("\n");
             }
             is.close();
             json = sb.toString();
-        } catch (Exception e) {
-            Log.e("Buffer Error", "Error converting result " + e.toString());
-        }
-
-        // try parse the string to a JSON object
-        try {
-            jObj = new JSONObject(json);
-        } catch (JSONException e) {
-            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        } catch (IOException e) {
+            Log.e("IOException", e.toString());
             return null;
         }
 
-        // return JSON String
-        return jObj;
+        // Return JSONObject if it's one, otherwise null
+        try {
+            return new JSONObject(json);
+        } catch (JSONException e) {
+            Log.e("JSONException", e.toString());
+            return null;
+        }
     }
 }
