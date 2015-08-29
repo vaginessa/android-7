@@ -21,13 +21,13 @@ allprojects {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 22
     buildToolsVersion "23.0.0"
 
     defaultConfig {
         applicationId "de.nico.asura"
         minSdkVersion 9
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode 5
         versionName "0.40"
     }
