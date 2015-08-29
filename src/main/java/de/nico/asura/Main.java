@@ -8,7 +8,6 @@ package de.nico.asura;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Request;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -19,6 +18,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,6 +61,8 @@ public final class Main extends Activity {
 
     // Data from JSON file
     private final ArrayList<HashMap<String, String>> downloadList = new ArrayList<>();
+
+    private static SwipeRefreshLayout swipeRefreshLayout;
 
     private final BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
 
@@ -184,6 +186,7 @@ public final class Main extends Activity {
 
     private void update() {
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout_main);
 
         offline = getString(R.string.status_offline);
         noPDF = getString(R.string.except_nopdf);
@@ -248,22 +251,27 @@ public final class Main extends Activity {
                 downloadID = downloadManager.enqueue(request);
             }
         });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                update();
+            }
+        });
     }
 
     private class JSONParse extends AsyncTask<String, String, JSONObject> {
-
-        private ProgressDialog pDialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            // Show ProgressDialog while loading data from URL
-            pDialog = new ProgressDialog(Main.this);
-            pDialog.setMessage(getString(R.string.load_data));
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+            swipeRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    swipeRefreshLayout.setRefreshing(true);
+                }
+            });
         }
 
         @Override
@@ -273,9 +281,7 @@ public final class Main extends Activity {
 
         @Override
         protected void onPostExecute(JSONObject json) {
-            // Close ProgressDialog
-            if (pDialog != null)
-                pDialog.dismiss();
+            swipeRefreshLayout.setRefreshing(false);
 
             if (json == null) {
                 final HashMap<String, String> map = new HashMap<>();
@@ -292,6 +298,7 @@ public final class Main extends Activity {
                 // Get JSON Array from URL
                 final JSONArray j_plans = json.getJSONArray(TAG_TYPE);
 
+                downloadList.clear();
                 for (int i = 0; i < j_plans.length(); i++) {
                     final JSONObject c = j_plans.getJSONObject(i);
 
