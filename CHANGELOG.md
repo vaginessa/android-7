@@ -3,6 +3,11 @@
 Some changes may have the headline *Developer* which means that it does not
 affect the user.
 
+### 0.52 (03.09.2015)
+
+- Show cached index while loading from web
+- Fix caching
+
 ### 0.51 (29.08.2015)
 
 - Fix bug with closed connection
