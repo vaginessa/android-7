@@ -58,16 +58,7 @@ public final class JSONParser {
                         writeToCache(System.currentTimeMillis(), TAG_TIME);
                         return jsonObject;
                     }
-                    else if (JSON != null) {
-                        return getJSONObjectFromString(JSON);
-                    }
                 }
-                else if (JSON != null) {
-                    return getJSONObjectFromString(JSON);
-                }
-            }
-            else {
-                return null;
             }
         }
         return getJSONObjectFromString(JSON);
