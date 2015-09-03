@@ -33,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -61,7 +62,7 @@ public final class Main extends Activity {
     private static File file;
 
     // Data from JSON file
-    private final ArrayList<HashMap<String, String>> downloadList = new ArrayList<>();
+    private ArrayList<HashMap<String, String>> downloadList = new ArrayList<>();
 
     // Files to delete
     private static final ArrayList<String> filesToGetDeleted = new ArrayList<>();
@@ -128,7 +129,7 @@ public final class Main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        update(false);
+        update(false, true);
     }
 
     @Override
@@ -201,7 +202,7 @@ public final class Main extends Activity {
         }
     }
 
-    private void update(boolean force) {
+    private void update(boolean force, boolean firstLoad) {
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout_main);
 
@@ -212,6 +213,19 @@ public final class Main extends Activity {
 
         checkDir();
 
+        if (firstLoad) {
+            try {
+                downloadList = (ArrayList<HashMap<String, String>>) Utils.readObject(this, "downloadList");
+                if (downloadList != null) {
+                    setList(true, true);
+                }
+            } catch (ClassNotFoundException e) {
+                Log.e("ClassNotFoundException", e.toString());
+            } catch (IOException e) {
+                Log.e("IOException", e.toString());
+            }
+        }
+
         // Parse the JSON file of the plans from the URL
         JSONParse j = new JSONParse();
         j.force = force;
@@ -220,6 +234,13 @@ public final class Main extends Activity {
     }
 
     private void setList(final boolean downloadable, final boolean itemsAvailable) {
+        if (itemsAvailable) {
+            try {
+                Utils.writeObject(this, "downloadList", downloadList);
+            } catch (IOException e) {
+                Log.e("IOException", e.toString());
+            }
+        }
         final ListView list = (ListView) findViewById(R.id.listView_main);
         final ListAdapter adapter = new SimpleAdapter(this, downloadList,
                 android.R.layout.simple_list_item_1, new String[]{TAG_NAME},
@@ -273,7 +294,7 @@ public final class Main extends Activity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                update(true);
+                update(true, false);
             }
         });
     }
