@@ -99,7 +99,7 @@ public final class JSONParser {
         }
 
         // Open URL
-        HttpsURLConnection urlConnection = null;
+        HttpsURLConnection urlConnection;
         try {
             urlConnection = (HttpsURLConnection) url.openConnection();
             return urlConnection.getInputStream();
