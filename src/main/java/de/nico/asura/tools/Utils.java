@@ -29,6 +29,9 @@ import de.nico.asura.R;
 
 public final class Utils {
 
+    // Log tag for this class
+    private static final String TAG = "Utils";
+
     public static void makeShortToast(Context c, String msg) {
         Toast.makeText(c, msg, Toast.LENGTH_SHORT).show();
     }
@@ -66,7 +69,7 @@ public final class Utils {
             return true;
         } catch (ActivityNotFoundException e) {
             Utils.makeLongToast(c, c.getString(R.string.except_contacts));
-            Log.e("ActivityNotFoundExcept", e.toString());
+            Log.e(TAG, e.getMessage());
             return false;
         }
     }
@@ -86,7 +89,7 @@ public final class Utils {
             return true;
         } catch (ActivityNotFoundException e) {
             Utils.makeLongToast(c, c.getString(R.string.except_dial));
-            Log.e("ActivityNotFoundExcept", e.toString());
+            Log.e(TAG, e.getMessage());
             return false;
         }
     }
@@ -110,7 +113,7 @@ public final class Utils {
             return true;
         } catch (ActivityNotFoundException e) {
             Utils.makeLongToast(c, c.getString(R.string.except_mail));
-            Log.e("ActivityNotFoundExcept", e.toString());
+            Log.e(TAG, e.getMessage());
             return false;
         }
     }
@@ -127,7 +130,7 @@ public final class Utils {
             return true;
         } catch (ActivityNotFoundException e) {
             Utils.makeLongToast(c, c.getString(R.string.except_map));
-            Log.e("ActivityNotFoundExcept", e.toString());
+            Log.e(TAG, e.getMessage());
             return false;
         }
     }

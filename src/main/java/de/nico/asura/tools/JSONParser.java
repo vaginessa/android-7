@@ -25,6 +25,9 @@ import javax.net.ssl.HttpsURLConnection;
 
 public final class JSONParser {
 
+    // Log tag for this class
+    private static final String TAG = "JSONParser";
+
     // Default SharedPreferences
     private static SharedPreferences cache;
 
@@ -80,7 +83,7 @@ public final class JSONParser {
             is.close();
             return sb.toString();
         } catch (IOException e) {
-            Log.e("IOException", e.toString());
+            Log.e(TAG, e.getMessage());
             return null;
         }
     }
@@ -91,7 +94,7 @@ public final class JSONParser {
         try {
             url = new URL(urlString);
         } catch (MalformedURLException e) {
-            Log.e("MalformedURLException", e.toString());
+            Log.e(TAG, e.getMessage());
             return null;
         }
 
@@ -100,14 +103,8 @@ public final class JSONParser {
         try {
             urlConnection = (HttpsURLConnection) url.openConnection();
             return urlConnection.getInputStream();
-        } catch (IOException e) {
-            Log.e("IOException", e.toString());
-            return null;
-        } catch (NullPointerException e) {
-            Log.e("NullPointerException", e.toString());
-            return null;
-        } catch (ClassCastException e) {
-            Log.e("ClassCastException", e.toString());
+        } catch (IOException | NullPointerException | ClassCastException e) {
+            Log.e(TAG, e.getMessage());
             return null;
         }
     }
@@ -120,7 +117,7 @@ public final class JSONParser {
             try {
                 return new JSONObject(s);
             } catch (JSONException e) {
-                Log.e("JSONException", e.toString());
+                Log.e(TAG, e.getMessage());
                 return null;
             }
         }

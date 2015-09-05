@@ -45,6 +45,9 @@ import de.nico.asura.tools.Utils;
 
 public final class Main extends Activity {
 
+    // Log tag for this class
+    private static final String TAG = "Main";
+
     // JSON Node Names
     private static final String TAG_TYPE = "plans";
     private static final String TAG_NAME = "name";
@@ -93,7 +96,7 @@ public final class Main extends Activity {
                             startActivity(pdfIntent);
                         } catch (ActivityNotFoundException e) {
                             Utils.makeLongToast(Main.this, noPDF);
-                            Log.e("ActivityNotFoundExcept", e.toString());
+                            Log.e(TAG, e.getMessage());
                         }
                         break;
                     case DownloadManager.STATUS_FAILED:
@@ -219,10 +222,8 @@ public final class Main extends Activity {
                 if (downloadList != null) {
                     setList(true, true);
                 }
-            } catch (ClassNotFoundException e) {
-                Log.e("ClassNotFoundException", e.toString());
-            } catch (IOException e) {
-                Log.e("IOException", e.toString());
+            } catch (ClassNotFoundException | IOException e) {
+                Log.e(TAG, e.getMessage());
             }
         }
 
@@ -238,7 +239,7 @@ public final class Main extends Activity {
             try {
                 Utils.writeObject(this, "downloadList", downloadList);
             } catch (IOException e) {
-                Log.e("IOException", e.toString());
+                Log.e(TAG, e.getMessage());
             }
         }
         final ListView list = (ListView) findViewById(R.id.listView_main);
@@ -271,7 +272,7 @@ public final class Main extends Activity {
                             startActivity(pdfIntent);
                         } catch (ActivityNotFoundException e) {
                             Utils.makeLongToast(Main.this, noPDF);
-                            Log.e("ActivityNotFoundExcept", e.toString());
+                            Log.e(TAG, e.getMessage());
                         }
                         return;
                     }
@@ -373,7 +374,7 @@ public final class Main extends Activity {
                     setList(online, true);
                 }
             } catch (JSONException e) {
-                Log.e("JSONException", e.toString());
+                Log.e(TAG, e.getMessage());
             }
         }
     }
