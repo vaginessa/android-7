@@ -27,18 +27,14 @@ public final class JSONParser {
 
     // Log tag for this class
     private static final String TAG = "JSONParser";
-
-    // Default SharedPreferences
-    private static SharedPreferences cache;
-
     // String where index is cached
     private static final String TAG_JSON = "json";
-
     // Shows time when index was synced the last time
     private static final String TAG_TIME = "lastTimeSynced";
-
     // How long the index should be cached in milliseconds
     private static final long CACHE_TIME = 600000;
+    // Default SharedPreferences
+    private static SharedPreferences cache;
 
     /**
      * Parses a {@link org.json.JSONObject} from an {@link java.net.URL}.

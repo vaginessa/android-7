@@ -2,7 +2,7 @@
  * Author: Nico Alt
  * See the file "LICENSE" for the full license governing this code.
  */
- 
+
 buildscript {
     repositories {
         jcenter()

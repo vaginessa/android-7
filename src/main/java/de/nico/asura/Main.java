@@ -54,6 +54,11 @@ public final class Main extends Activity {
     private static final String TAG_FILENAME = "filename";
     private static final String TAG_URL = "url";
     private static final String TAG_SHOULD_NOT_CACHE = "shouldNotCache";
+
+    // Files to delete
+    private static final ArrayList<String> filesToGetDeleted = new ArrayList<>();
+
+    // Strings displayed to the user
     private static String offline;
     private static String noPDF;
     private static String localLoc;
@@ -63,12 +68,6 @@ public final class Main extends Activity {
     private static DownloadManager downloadManager;
     private static long downloadID;
     private static File file;
-
-    // Data from JSON file
-    private ArrayList<HashMap<String, String>> downloadList = new ArrayList<>();
-
-    // Files to delete
-    private static final ArrayList<String> filesToGetDeleted = new ArrayList<>();
 
     private static SwipeRefreshLayout swipeRefreshLayout;
 
@@ -119,6 +118,8 @@ public final class Main extends Activity {
             }
         }
     };
+    // Data from JSON file
+    private ArrayList<HashMap<String, String>> downloadList = new ArrayList<>();
 
     private static void checkDir() {
         final File dir = new File(Environment.getExternalStorageDirectory() + "/"
@@ -197,7 +198,7 @@ public final class Main extends Activity {
         super.onDestroy();
 
         // Delete files which should not get cached.
-        for(String file : filesToGetDeleted) {
+        for (String file : filesToGetDeleted) {
             final File f = new File(file);
             if (f.exists()) {
                 f.delete();
@@ -284,8 +285,7 @@ public final class Main extends Activity {
                         if (shouldNotCache.equals("true")) {
                             filesToGetDeleted.add(file.toString());
                         }
-                    }
-                    else {
+                    } else {
                         Utils.makeLongToast(Main.this, offline);
                     }
                 }
