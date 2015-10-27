@@ -1,6 +1,6 @@
 # Asura
 
-[![Build Status](https://ci.gitlab.com/projects/3552/status.png?ref=master)](https://ci.gitlab.com/projects/3552?ref=master)
+[![Build Status](https://ci.gitlab.com/projects/3552/status.png?ref=master)](https://gitlab.com/asura/android/commits/master)
 
 ## What is this project for?
 
