@@ -11,6 +11,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import de.nico.asura.R;
@@ -23,6 +24,9 @@ public final class WebView1 extends Activity {
         setContentView(R.layout.webview);
 
         final WebView WebView = (WebView) findViewById(R.id.webView_main);
+        WebSettings settings = WebView.getSettings();
+        settings.setDomStorageEnabled(true);
+
         WebView.loadUrl(getString(R.string.menu_Web_1_url));
         WebView.getSettings().setJavaScriptEnabled(getResources().getBoolean(R.bool.menu_Web_1_js));
 

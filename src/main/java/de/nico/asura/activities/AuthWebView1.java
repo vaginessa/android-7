@@ -17,6 +17,7 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.HttpAuthHandler;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -75,6 +76,8 @@ public final class AuthWebView1 extends Activity {
     private void openWebView() {
         setContentView(R.layout.webview);
         final WebView webView = (WebView) findViewById(R.id.webView_main);
+        WebSettings settings = webView.getSettings();
+        settings.setDomStorageEnabled(true);
         webView.setWebViewClient(new MyWebViewClient());
         webView.loadUrl(getString(R.string.menu_AuthWeb_1_url));
         webView.getSettings().setBuiltInZoomControls(true);
