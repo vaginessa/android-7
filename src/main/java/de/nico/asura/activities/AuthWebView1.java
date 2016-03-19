@@ -158,5 +158,10 @@ public final class AuthWebView1 extends Activity {
                                               HttpAuthHandler handler, String host, String realm) {
             handler.proceed(firstField, secondField);
         }
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return false;
+        }
     }
 }

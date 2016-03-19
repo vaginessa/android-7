@@ -13,6 +13,7 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import de.nico.asura.R;
 
@@ -27,6 +28,7 @@ public final class WebView1 extends Activity {
         WebSettings settings = WebView.getSettings();
         settings.setDomStorageEnabled(true);
 
+        WebView.setWebViewClient(new MyWebViewClient());
         WebView.loadUrl(getString(R.string.menu_Web_1_url));
         WebView.getSettings().setJavaScriptEnabled(getResources().getBoolean(R.bool.menu_Web_1_js));
 
@@ -43,5 +45,13 @@ public final class WebView1 extends Activity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return false;
+        }
     }
 }
