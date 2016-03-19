@@ -1,5 +1,12 @@
 # Changelog of Asura
 
+## 0.53 (19.03.2016)
+
+- Enable Web Storage in WebViews
+- Catch all links in WebViews
+- Improve Android logs
+- Bump dependencies
+
 ## 0.52 (03.09.2015)
 
 - Show cached index while loading from web
