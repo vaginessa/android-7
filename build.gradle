@@ -28,8 +28,8 @@ android {
         applicationId "de.nico.asura"
         minSdkVersion 9
         targetSdkVersion 23
-        versionCode 8
-        versionName "0.52"
+        versionCode 9
+        versionName "0.53"
     }
 
     buildTypes {
