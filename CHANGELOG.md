@@ -1,5 +1,9 @@
 # Changelog of Asura
 
+## 0.53.1 (20.03.2016)
+
+- Fix bug on Android 6.x with targeting Android API 22
+
 ## 0.53 (19.03.2016)
 
 - Enable Web Storage in WebViews
