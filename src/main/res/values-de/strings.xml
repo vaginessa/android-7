@@ -47,4 +47,8 @@
     <!-- Widget -->
     <string name="widget_description">App Icon</string>
 
+    <!-- Permissions -->
+    <string name="permission_write_external_storage_success">Danke. Versuche nun erneut einen Plan zu öffnen!</string>
+    <string name="permission_write_external_storage_failure">%1$s muss in den externen Speicher schreiben dürfen um Pläne öffnen zu können.</string>
+
 </resources>

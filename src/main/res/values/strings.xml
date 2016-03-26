@@ -47,4 +47,8 @@
     <!-- Widget -->
     <string name="widget_description">App Icon</string>
 
+    <!-- Permissions -->
+    <string name="permission_write_external_storage_success">Thank you. Now try to open the plan again!</string>
+    <string name="permission_write_external_storage_failure">%1$s needs to write to external storage in order to open plans.</string>
+
 </resources>

@@ -5,6 +5,7 @@ package de.nico.asura;
  * See the file "LICENSE" for the full license governing this code.
  */
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Request;
@@ -13,11 +14,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -48,6 +53,9 @@ public final class Main extends Activity {
 
     // Log tag for this class
     private static final String TAG = "Main";
+
+    // Callback code for request of storage permission
+    final private int PERMISSIONS_REQUEST_STORAGE = 735;
 
     // JSON Node Names
     private static final String TAG_TYPE = "plans";
@@ -224,6 +232,31 @@ public final class Main extends Activity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Utils.makeLongToast(Main.this, getString(R.string.permission_write_external_storage_success));
+                }
+                else {
+                    final String permission_write_external_storage_failure = getString(R.string.permission_write_external_storage_failure);
+                    final String app_title = getString(R.string.gen_name);
+                    final String message = String.format(permission_write_external_storage_failure, app_title);
+                    Utils.makeLongToast(Main.this, message);
+
+                    boolean showRationale = ActivityCompat.shouldShowRequestPermissionRationale(Main.this, permissions[0]);
+                    if (!showRationale) {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                    }
+                }
+                break;
+        }
+    }
+
     private void update(boolean force, boolean firstLoad) {
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout_main);
@@ -274,6 +307,14 @@ public final class Main extends Activity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View v, int pos,
                                         long id) {
+                    int hasStoragePermission = ContextCompat.checkSelfPermission(Main.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    if (hasStoragePermission != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(Main.this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                PERMISSIONS_REQUEST_STORAGE);
+                        return;
+                    }
                     final Uri downloadUri = Uri.parse(downloadList.get(pos).get(TAG_URL));
                     final String title = downloadList.get(pos).get(TAG_NAME);
                     final String shouldNotCache = downloadList.get(pos).get(TAG_SHOULD_NOT_CACHE);
