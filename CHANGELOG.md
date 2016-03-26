@@ -1,5 +1,9 @@
 # Changelog of Asura
 
+## 0.54.1 (26.03.2016)
+
+* Ask for permissions on Android API 23+
+
 ## 0.54 (26.03.2016)
 
 * Revision of WebViews (6f8c77cee)
