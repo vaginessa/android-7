@@ -37,9 +37,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import de.nico.asura.activities.AuthWebView1;
+import de.nico.asura.activities.WebView2;
 import de.nico.asura.activities.Preferences;
 import de.nico.asura.activities.WebView1;
+import de.nico.asura.activities.WebView3;
 import de.nico.asura.tools.JSONParser;
 import de.nico.asura.tools.Utils;
 
@@ -157,6 +158,22 @@ public final class Main extends Activity {
                 }
                 return true;
 
+            case R.id.action_WebView2:
+                if (Utils.isNoNetworkAvailable(this)) {
+                    Utils.makeLongToast(this, offline);
+                } else {
+                    startActivity(new Intent(this, WebView2.class));
+                }
+                return true;
+
+            case R.id.action_WebView3:
+                if (Utils.isNoNetworkAvailable(this)) {
+                    Utils.makeLongToast(this, offline);
+                } else {
+                    startActivity(new Intent(this, WebView3.class));
+                }
+                return true;
+
             case R.id.action_Link1:
                 if (Utils.isNoNetworkAvailable(this)) {
                     Utils.makeLongToast(this, offline);
@@ -166,11 +183,12 @@ public final class Main extends Activity {
                 }
                 return true;
 
-            case R.id.action_AuthWebView1:
+            case R.id.action_Link2:
                 if (Utils.isNoNetworkAvailable(this)) {
                     Utils.makeLongToast(this, offline);
                 } else {
-                    startActivity(new Intent(this, AuthWebView1.class));
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.menu_Link_2_url))));
                 }
                 return true;
 

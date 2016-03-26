@@ -16,6 +16,7 @@ import android.support.v4.app.NavUtils;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.HttpAuthHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -26,25 +27,34 @@ import android.widget.LinearLayout;
 import de.nico.asura.R;
 import de.nico.asura.tools.Utils;
 
-public final class AuthWebView1 extends Activity {
+public final class WebView3 extends Activity {
+
+    private static boolean withAuthentication;
 
     private static SharedPreferences prefs;
+    private static final String sharedPrefDefault = "0";
+    private static final String sharedPrefFiFi = "webView3_auth_fiFi";
+    private static final String sharedPrefSeFi = "webView3_auth_seFi";
+
     private static String firstField;
     private static String secondField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        withAuthentication = getResources().getBoolean(R.bool.menu_Web_3_auth);
 
         // Check password
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        firstField = prefs.getString("firstFirst", "0");
-        secondField = prefs.getString("firstSecond", "0");
+        firstField = prefs.getString(sharedPrefFiFi, sharedPrefDefault);
+        secondField = prefs.getString(sharedPrefSeFi, sharedPrefDefault);
 
-        if (firstField.equals("0") || secondField.equals("0"))
+        if (withAuthentication && (firstField.equals(sharedPrefDefault) || secondField.equals(sharedPrefDefault))) {
             checkLogin();
-        else
+        }
+        else {
             openWebView();
+        }
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -53,7 +63,9 @@ public final class AuthWebView1 extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.authwebview, menu);
+        if (withAuthentication) {
+            getMenuInflater().inflate(R.menu.webview_auth, menu);
+        }
         return true;
     }
 
@@ -79,9 +91,9 @@ public final class AuthWebView1 extends Activity {
         WebSettings settings = webView.getSettings();
         settings.setDomStorageEnabled(true);
         webView.setWebViewClient(new MyWebViewClient());
-        webView.loadUrl(getString(R.string.menu_AuthWeb_1_url));
+        webView.loadUrl(getString(R.string.menu_Web_3_url));
         webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setJavaScriptEnabled(getResources().getBoolean(R.bool.menu_AuthWeb_1_js));
+        webView.getSettings().setJavaScriptEnabled(getResources().getBoolean(R.bool.menu_Web_3_js));
     }
 
     private void checkLogin() {
@@ -90,17 +102,17 @@ public final class AuthWebView1 extends Activity {
         layout.setOrientation(LinearLayout.VERTICAL);
 
         final EditText edit_name = new EditText(this);
-        edit_name.setHint(getString(R.string.menu_AuthWeb_1_fiFi));
+        edit_name.setHint(getString(R.string.menu_Web_3_auth_fiFi));
         layout.addView(edit_name);
 
         final EditText edit_pass = new EditText(this);
-        edit_pass.setHint(getString(R.string.menu_AuthWeb_1_seFi));
+        edit_pass.setHint(getString(R.string.menu_Web_3_auth_seFi));
         edit_pass.setInputType(InputType.TYPE_CLASS_TEXT
                 | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         layout.addView(edit_pass);
 
         final Builder builder = new Builder(this);
-        builder.setTitle(getString(R.string.menu_AuthWeb_1_name))
+        builder.setTitle(getString(R.string.menu_Web_3_name))
                 .setCancelable(false)
                 .setView(layout)
                 .setPositiveButton(getString(android.R.string.ok),
@@ -115,7 +127,7 @@ public final class AuthWebView1 extends Activity {
                                 // Nothing?
                                 if (firstField.length() == 0
                                         || secondField.length() == 0) {
-                                    Utils.makeShortToast(AuthWebView1.this,
+                                    Utils.makeShortToast(WebView3.this,
                                             getString(R.string.wrong));
                                     checkLogin();
                                     return;
@@ -123,8 +135,8 @@ public final class AuthWebView1 extends Activity {
                                 }
 
                                 final Editor editor = prefs.edit();
-                                editor.putString("firstFirst", firstField);
-                                editor.putString("firstSecond", secondField);
+                                editor.putString(sharedPrefFiFi, firstField);
+                                editor.putString(sharedPrefSeFi, secondField);
                                 editor.apply();
 
                                 openWebView();
@@ -137,7 +149,7 @@ public final class AuthWebView1 extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
-                                AuthWebView1.this.finish();
+                                WebView3.this.finish();
 
                             }
 
@@ -146,17 +158,26 @@ public final class AuthWebView1 extends Activity {
 
     private void resetLogin() {
         final Editor editor = prefs.edit();
-        editor.putString("name", "0");
-        editor.putString("pass", "0");
+        editor.putString(sharedPrefFiFi, sharedPrefDefault);
+        editor.putString(sharedPrefSeFi, sharedPrefDefault);
         editor.apply();
         checkLogin();
     }
 
     private class MyWebViewClient extends WebViewClient {
         @Override
+        public void onPageFinished(WebView view, String url) {
+            // Hide loading animation
+            findViewById(R.id.loadingAnimation_main).setVisibility(View.GONE);
+            // Show WebView
+            findViewById(R.id.webView_main).setVisibility(View.VISIBLE);
+        }
+        @Override
         public void onReceivedHttpAuthRequest(WebView view,
                                               HttpAuthHandler handler, String host, String realm) {
-            handler.proceed(firstField, secondField);
+            if (withAuthentication) {
+                handler.proceed(firstField, secondField);
+            }
         }
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

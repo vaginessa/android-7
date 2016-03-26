@@ -27,14 +27,14 @@ import android.widget.LinearLayout;
 import de.nico.asura.R;
 import de.nico.asura.tools.Utils;
 
-public final class WebView1 extends Activity {
+public final class WebView2 extends Activity {
 
     private static boolean withAuthentication;
 
     private static SharedPreferences prefs;
     private static final String sharedPrefDefault = "0";
-    private static final String sharedPrefFiFi = "webView1_auth_fiFi";
-    private static final String sharedPrefSeFi = "webView1_auth_seFi";
+    private static final String sharedPrefFiFi = "webView2_auth_fiFi";
+    private static final String sharedPrefSeFi = "webView2_auth_seFi";
 
     private static String firstField;
     private static String secondField;
@@ -42,7 +42,7 @@ public final class WebView1 extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        withAuthentication = getResources().getBoolean(R.bool.menu_Web_1_auth);
+        withAuthentication = getResources().getBoolean(R.bool.menu_Web_2_auth);
 
         // Check password
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -91,9 +91,9 @@ public final class WebView1 extends Activity {
         WebSettings settings = webView.getSettings();
         settings.setDomStorageEnabled(true);
         webView.setWebViewClient(new MyWebViewClient());
-        webView.loadUrl(getString(R.string.menu_Web_1_url));
+        webView.loadUrl(getString(R.string.menu_Web_2_url));
         webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setJavaScriptEnabled(getResources().getBoolean(R.bool.menu_Web_1_js));
+        webView.getSettings().setJavaScriptEnabled(getResources().getBoolean(R.bool.menu_Web_2_js));
     }
 
     private void checkLogin() {
@@ -102,17 +102,17 @@ public final class WebView1 extends Activity {
         layout.setOrientation(LinearLayout.VERTICAL);
 
         final EditText edit_name = new EditText(this);
-        edit_name.setHint(getString(R.string.menu_Web_1_auth_fiFi));
+        edit_name.setHint(getString(R.string.menu_Web_2_auth_fiFi));
         layout.addView(edit_name);
 
         final EditText edit_pass = new EditText(this);
-        edit_pass.setHint(getString(R.string.menu_Web_1_auth_seFi));
+        edit_pass.setHint(getString(R.string.menu_Web_2_auth_seFi));
         edit_pass.setInputType(InputType.TYPE_CLASS_TEXT
                 | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         layout.addView(edit_pass);
 
         final Builder builder = new Builder(this);
-        builder.setTitle(getString(R.string.menu_Web_1_name))
+        builder.setTitle(getString(R.string.menu_Web_2_name))
                 .setCancelable(false)
                 .setView(layout)
                 .setPositiveButton(getString(android.R.string.ok),
@@ -127,7 +127,7 @@ public final class WebView1 extends Activity {
                                 // Nothing?
                                 if (firstField.length() == 0
                                         || secondField.length() == 0) {
-                                    Utils.makeShortToast(WebView1.this,
+                                    Utils.makeShortToast(WebView2.this,
                                             getString(R.string.wrong));
                                     checkLogin();
                                     return;
@@ -149,7 +149,7 @@ public final class WebView1 extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
-                                WebView1.this.finish();
+                                WebView2.this.finish();
 
                             }
 

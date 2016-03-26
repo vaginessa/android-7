@@ -15,14 +15,24 @@
         android:title="@string/menu_Web_1_name"
         android:visible="@bool/menu_Web_1_vis" />
     <item
+        android:id="@+id/action_WebView2"
+        android:orderInCategory="@integer/menu_Web_2_order"
+        android:title="@string/menu_Web_2_name"
+        android:visible="@bool/menu_Web_2_vis" />
+    <item
+        android:id="@+id/action_WebView3"
+        android:orderInCategory="@integer/menu_Web_3_order"
+        android:title="@string/menu_Web_3_name"
+        android:visible="@bool/menu_Web_3_vis" />
+    <item
         android:id="@+id/action_Link1"
         android:orderInCategory="@integer/menu_Link_1_order"
         android:title="@string/menu_Link_1_name"
         android:visible="@bool/menu_Link_1_vis" />
     <item
-        android:id="@+id/action_AuthWebView1"
-        android:orderInCategory="@integer/menu_AuthWeb_1_order"
-        android:title="@string/menu_AuthWeb_1_name"
-        android:visible="@bool/menu_AuthWeb_1_vis" />
+        android:id="@+id/action_Link2"
+        android:orderInCategory="@integer/menu_Link_2_order"
+        android:title="@string/menu_Link_2_name"
+        android:visible="@bool/menu_Link_2_vis" />
 
 </menu>

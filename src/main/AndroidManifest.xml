@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <!-- WebViewFirst Activity -->
+        <!-- First WebView Activity -->
         <activity
             android:name="de.nico.asura.activities.WebView1"
             android:label="@string/menu_Web_1_name">
@@ -36,10 +36,19 @@
                 android:value="de.nico.asura.Main" />
         </activity>
 
-        <!-- PassWebViewFirst Activity -->
+        <!-- Second WebView Activity -->
         <activity
-            android:name="de.nico.asura.activities.AuthWebView1"
-            android:label="@string/menu_AuthWeb_1_name">
+            android:name="de.nico.asura.activities.WebView2"
+            android:label="@string/menu_Web_2_name">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.nico.asura.Main" />
+        </activity>
+
+        <!-- Third WebView Activity -->
+        <activity
+            android:name="de.nico.asura.activities.WebView3"
+            android:label="@string/menu_Web_3_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.nico.asura.Main" />

@@ -92,10 +92,10 @@
             <bool name="menu_Web_1_vis">true</bool>
 
             <!-- 3.1.1.2 Name -->
-            <string name="menu_Web_1_name">WebView</string>
+            <string name="menu_Web_1_name">WebView #1</string>
 
             <!-- 3.1.1.3 Order in Category -->
-            <integer name="menu_Web_1_order">70</integer>
+            <integer name="menu_Web_1_order">10</integer>
 
             <!-- 3.1.1.4 URL -->
             <string name="menu_Web_1_url">https://altnico.github.io/</string>
@@ -103,33 +103,72 @@
             <!-- 3.1.1.5 JavaScript (Disable if not needed) -->
             <bool name="menu_Web_1_js">true</bool>
 
+            <!-- 3.1.1.6 Authentication -->
+            <bool name="menu_Web_1_auth">false</bool>
 
-        <!-- 3.2 WebView with authentication -->
+                <!-- 3.1.1.6.1 First field -->
+                <string name="menu_Web_1_auth_fiFi">Name</string>
 
-            <!-- 3.2.1 First -->
+                <!-- 3.1.1.6.2 Second field -->
+                <string name="menu_Web_1_auth_seFi">Password</string>
+
+
+        <!-- 3.2 WebView -->
+
+            <!-- 3.2.1 Second -->
 
                 <!-- 3.2.1.1 Visible -->
-                <bool name="menu_AuthWeb_1_vis">false</bool>
+                <bool name="menu_Web_2_vis">true</bool>
 
                 <!-- 3.2.1.2 Name -->
-                <string name="menu_AuthWeb_1_name">AuthWebView</string>
+                <string name="menu_Web_2_name">WebView #2</string>
 
                 <!-- 3.2.1.3 Order in Category -->
-                <integer name="menu_AuthWeb_1_order">80</integer>
+                <integer name="menu_Web_2_order">20</integer>
 
                 <!-- 3.2.1.4 URL -->
-                <string name="menu_AuthWeb_1_url">URL</string>
+                <string name="menu_Web_2_url">https://gitlab.com/asura/android</string>
 
                 <!-- 3.2.1.5 JavaScript (Disable if not needed) -->
-                <bool name="menu_AuthWeb_1_js">true</bool>
+                <bool name="menu_Web_2_js">true</bool>
 
                 <!-- 3.2.1.6 Authentication -->
+                <bool name="menu_Web_2_auth">false</bool>
 
                     <!-- 3.2.1.6.1 First field -->
-                    <string name="menu_AuthWeb_1_fiFi">Name</string>
+                    <string name="menu_Web_2_auth_fiFi">Name</string>
 
                     <!-- 3.2.1.6.2 Second field -->
-                    <string name="menu_AuthWeb_1_seFi">Passwort</string>
+                    <string name="menu_Web_2_auth_seFi">Password</string>
+
+
+        <!-- 3.3 WebView -->
+
+        <!-- 3.3.1 Third -->
+
+            <!-- 3.3.1.1 Visible -->
+            <bool name="menu_Web_3_vis">true</bool>
+
+            <!-- 3.3.1.2 Name -->
+            <string name="menu_Web_3_name">WebView #3</string>
+
+            <!-- 3.3.1.3 Order in Category -->
+            <integer name="menu_Web_3_order">30</integer>
+
+            <!-- 3.3.1.4 URL -->
+            <string name="menu_Web_3_url">https://github.com/asura-app/android</string>
+
+            <!-- 3.3.1.5 JavaScript (Disable if not needed) -->
+            <bool name="menu_Web_3_js">true</bool>
+
+            <!-- 3.3.1.6 Authentication -->
+            <bool name="menu_Web_3_auth">false</bool>
+
+                <!-- 3.3.1.6.1 First field -->
+                <string name="menu_Web_3_auth_fiFi">Name</string>
+
+                <!-- 3.3.1.6.2 Second field -->
+                <string name="menu_Web_3_auth_seFi">Password</string>
 
 
         <!-- 3.3 Link -->
@@ -140,13 +179,27 @@
                 <bool name="menu_Link_1_vis">true</bool>
 
                 <!-- 3.3.1.2 Name -->
-                <string name="menu_Link_1_name">Link</string>
+                <string name="menu_Link_1_name">Link #1</string>
 
                 <!-- 3.3.1.3 Order in Category -->
-                <integer name="menu_Link_1_order">90</integer>
+                <integer name="menu_Link_1_order">40</integer>
 
                 <!-- 3.3.1.4 URL -->
                 <string name="menu_Link_1_url">https://gitlab.com/NicoAlt/</string>
+
+            <!-- 3.3.2 Second -->
+
+                <!-- 3.3.1.1 Visible -->
+                <bool name="menu_Link_2_vis">true</bool>
+
+                <!-- 3.3.1.2 Name -->
+                <string name="menu_Link_2_name">Link #2</string>
+
+                <!-- 3.3.1.3 Order in Category -->
+                <integer name="menu_Link_2_order">50</integer>
+
+                <!-- 3.3.1.4 URL -->
+                <string name="menu_Link_2_url">https://github.com/AltNico</string>
 
 
     <!-- 4. Data -->
