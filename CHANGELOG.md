@@ -1,5 +1,9 @@
 # Changelog of Asura
 
+## 0.54 (26.03.2016)
+
+* Revision of WebViews (6f8c77cee)
+
 ## 0.53.1 (20.03.2016)
 
 - Fix bug on Android 6.x with targeting Android API 22
