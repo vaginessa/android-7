@@ -10,6 +10,10 @@ build.xml
 .DS_Store
 gen/
 .gradle/
+gradlew
+gradlew.bat
+gradle-wrapper.jar
+gradle-wrapper.properties
 .idea/
 *.iml
 local.properties
