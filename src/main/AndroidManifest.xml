@@ -19,7 +19,7 @@
 
         <!-- Main Application Activity -->
         <activity
-            android:name="com.gardgen.json .Main"
+            android:name="com.gardgen.json.Main"
             android:label="@string/gen_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
