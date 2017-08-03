@@ -25,10 +25,10 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "de.nico.asura"
+        applicationId "com.cardgen.json"
         minSdkVersion 9
         targetSdkVersion 23
-        versionCode 12
+        versionCode 1.0
         versionName "0.54.1"
     }
 
