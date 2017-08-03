@@ -4,7 +4,7 @@
 	See the file "LICENSE" for the full license governing this code.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.nico.asura">
+    package="com.gardgen.json">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -19,7 +19,7 @@
 
         <!-- Main Application Activity -->
         <activity
-            android:name="de.nico.asura.Main"
+            android:name="com.gardgen.json .Main"
             android:label="@string/gen_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,43 +29,43 @@
 
         <!-- First WebView Activity -->
         <activity
-            android:name="de.nico.asura.activities.WebView1"
+            android:name="com.gardgen.json.activities.WebView1"
             android:label="@string/menu_Web_1_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.nico.asura.Main" />
+                android:value="com.gardgen.json.Main" />
         </activity>
 
         <!-- Second WebView Activity -->
         <activity
-            android:name="de.nico.asura.activities.WebView2"
+            android:name="com.gardgen.json.Activities.WebView2"
             android:label="@string/menu_Web_2_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.nico.asura.Main" />
+                android:value="com.gardgen.json.Main" />
         </activity>
 
         <!-- Third WebView Activity -->
         <activity
-            android:name="de.nico.asura.activities.WebView3"
+            android:name="com.gardgen.json.activities.WebView3"
             android:label="@string/menu_Web_3_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.nico.asura.Main" />
+                android:value="com.gardgen.json.Main" />
         </activity>
 
         <!-- Preferences Activity -->
         <activity
-            android:name="de.nico.asura.activities.Preferences"
+            android:name="com.gardgen.json.activities.Preferences"
             android:label="@string/title_prefs">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.nico.asura.Main" />
+                android:value="com.gardgen.json.Main" />
         </activity>
 
         <!-- Widget -->
         <receiver
-            android:name="de.nico.asura.tools.Widget"
+            android:name="com.gardgen.json.tools.Widget"
             android:label="@string/gen_widget_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
